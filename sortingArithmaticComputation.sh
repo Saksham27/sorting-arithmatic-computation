@@ -10,3 +10,6 @@ operation1=`echo "scale=2; $((num1+num2*num3))" | bc`
 
 # compute a*b+c
 operation2=`echo "scale=2; $((num1*num2+num3))" | bc`
+
+# compute c+a/b
+operation3=`echo "scale=2; $((num3+num1/num2))" | bc`
