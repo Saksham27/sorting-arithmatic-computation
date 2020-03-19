@@ -9,6 +9,32 @@ declare -A operationResult
 # initialising an array
 declare -a resultArray
 
+# fucntion to sort the results in descending order
+# param 1 : array which you want to sort
+function sortDescending() {
+
+	# local constant
+	TRUE=1
+
+	# local variables
+	local tempArray=("$@")
+
+	for (( i=0; i<$(( ${#tempArray[@]}-1 )); i++ ))
+	do
+		for (( j=0; j<$(( ${#tempArray[@]}-1-$i )); j++ ))
+		do
+			if [ $(echo "${tempArray[$j]} <= ${tempArray[$j+1]}" | bc -l) -eq $TRUE ]
+			then
+				temp=${tempArray[$j]}
+				tempArray[$j]=${tempArray[$j+1]}
+				tempArray[$j+1]=$temp
+			fi
+		done
+	done
+
+	echo "Sorted in descending order :  ${tempArray[@]}"
+}
+
 # taking input three numbers
 read -p "Enter first number a : " num1
 read -p "Enter second number b : " num2
@@ -35,4 +61,8 @@ do
 	resultArray[$arrLength]=$var
 	(( arrLength++ ))
 done
+
+echo "Value array : ${resultArray[@]}"
+
+sortDescending ${resultArray[@]}
 
