@@ -1,7 +1,13 @@
 #!/bin/bash -x
 
+# variables
+arrLength=0
+
 # initialising a dictionary
 declare -A operationResult
+
+# initialising an array
+declare -a resultArray
 
 # taking input three numbers
 read -p "Enter first number a : " num1
@@ -24,4 +30,9 @@ operationResult["c+a/b"]=$operation3 # storing in dictionary
 operation4=`echo "scale=2; $((num1%num2+num3))" | bc`
 operationResult["a%b+c"]=$operation4 # storing in dictionary
 
-echo ${operationResult[@]}
+for var in ${operationResult[@]} # reading the values from dictioanry and storing them in array
+do
+	resultArray[$arrLength]=$var
+	(( arrLength++ ))
+done
+
