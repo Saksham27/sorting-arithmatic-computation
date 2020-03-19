@@ -32,7 +32,33 @@ function sortDescending() {
 		done
 	done
 
-	echo "Sorted in descending order :  ${tempArray[@]}"
+	echo "Sorted in Descending order :  ${tempArray[@]}"
+}
+
+# fucntion to sort the results in ascending order
+# param 1 : array which you want to sort
+function sortAscending() {
+
+	# local constant
+	TRUE=1
+
+	# local variables
+	local tempArray=("$@")
+
+	for (( i=0; i<$(( ${#tempArray[@]}-1 )); i++ ))
+	do
+		for (( j=0; j<$(( ${#tempArray[@]}-1-$i )); j++ ))
+		do
+			if [ $(echo "${tempArray[$j]} >= ${tempArray[$j+1]}" | bc -l) -eq $TRUE ]
+			then
+				temp=${tempArray[$j]}
+				tempArray[$j]=${tempArray[$j+1]}
+				tempArray[$j+1]=$temp
+			fi
+		done
+	done
+
+	echo "Sorted in Ascending order :  ${tempArray[@]}"
 }
 
 # taking input three numbers
@@ -66,3 +92,4 @@ echo "Value array : ${resultArray[@]}"
 
 sortDescending ${resultArray[@]}
 
+sortAscending ${resultArray[@]}
